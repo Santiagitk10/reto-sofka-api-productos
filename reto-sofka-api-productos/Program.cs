@@ -23,11 +23,12 @@ builder.Services.AddDbContext<StoreContext>(options =>
 
 var app = builder.Build();
 
-using (var scope = app.Services.CreateScope())
-{
-    var context = scope.ServiceProvider.GetRequiredService<StoreContext>();
-    context.Database.Migrate();
-}
+//To be run once. It overrides the DB
+//using (var scope = app.Services.CreateScope())
+//{
+//    var context = scope.ServiceProvider.GetRequiredService<StoreContext>();
+//    context.Database.Migrate();
+//}
 
 
 // Configure the HTTP request pipeline.
