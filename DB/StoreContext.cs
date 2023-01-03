@@ -18,6 +18,9 @@ namespace DB
              modelBuilder.Entity<Product>().ToTable("Product");
              modelBuilder.Entity<Purchase>().ToTable("Purchase");
 
+             modelBuilder.Entity<Product>().HasKey(p => p.ProductId);
+             modelBuilder.Entity<Purchase>().HasKey(pu => pu.PurchaseId);
+
              modelBuilder.Entity<ProductPurchase>()
             .HasKey(pp => new { pp.ProductId, pp.PurchaseId });
              modelBuilder.Entity<ProductPurchase>()
