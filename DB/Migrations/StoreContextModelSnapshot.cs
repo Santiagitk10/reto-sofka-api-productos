@@ -30,6 +30,9 @@ namespace DB.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ProductId"));
 
+                    b.Property<int>("InInventory")
+                        .HasColumnType("int");
+
                     b.Property<int>("Max")
                         .HasColumnType("int");
 

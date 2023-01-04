@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using reto_sofka_api_productos.DTOs;
+using reto_sofka_api_productos.Helpers;
 using reto_sofka_api_productos.Services;
 
 namespace reto_sofka_api_productos.Controllers
@@ -16,6 +17,21 @@ namespace reto_sofka_api_productos.Controllers
         {
             _service = service;
         }
+
+
+        [HttpGet("Get") ]
+        public async Task<IActionResult> GetAllProducts([FromQuery] ProductParameters productParameters)
+        {
+            List<GetProductDTO> products = await _service.GetAllProductsAsync(productParameters);
+
+            if (products.Count() == 0)
+            {
+                return NoContent();
+            }
+
+            return Ok(products);
+        }
+
 
         [HttpPost("Post")]
         public async Task<IActionResult> CreateProduct(CreateProductDTO productDTO)

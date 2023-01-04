@@ -11,6 +11,7 @@ namespace reto_sofka_api_productos.Helpers
         {
         
             CreateMap<CreateProductDTO, Product>().ReverseMap();
+            CreateMap<GetProductDTO, Product>().ReverseMap();
 
         }
 

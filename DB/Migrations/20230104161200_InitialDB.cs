@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace DB.Migrations
 {
     /// <inheritdoc />
-    public partial class InitDB : Migration
+    public partial class InitialDB : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -18,6 +18,7 @@ namespace DB.Migrations
                     ProductId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     ProductName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    InInventory = table.Column<int>(type: "int", nullable: false),
                     isEnabled = table.Column<bool>(type: "bit", nullable: false),
                     Min = table.Column<int>(type: "int", nullable: false),
                     Max = table.Column<int>(type: "int", nullable: false)

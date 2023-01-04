@@ -2,8 +2,10 @@
 using DB;
 using FluentValidation;
 using FluentValidation.Results;
+using Microsoft.EntityFrameworkCore;
 using reto_sofka_api_productos.DTOs;
 using reto_sofka_api_productos.Exceptions;
+using reto_sofka_api_productos.Helpers;
 
 namespace reto_sofka_api_productos.Services
 {
@@ -27,10 +29,29 @@ namespace reto_sofka_api_productos.Services
         }
 
 
-        public Task<List<Product>> GetAllProductsAsync()
+        public async Task<List<GetProductDTO>> GetAllProductsAsync(ProductParameters productParameters)
         {
-            throw new NotImplementedException();
+            List<Product> productsEntity = await _context.Products
+                .Skip((productParameters.PageNumber - 1) * productParameters.PageSize)
+                .Take(productParameters.PageSize)
+                .ToListAsync();
+
+            List<GetProductDTO> productsDTO = _mapper.Map<List<Product>, List<GetProductDTO>>(productsEntity);
+
+            return productsDTO;
         }
+
+
+
+
+
+
+
+
+
+
+
+
 
         Task<Product>? IProductService.GetProductByIdAsync(int id)
         {
