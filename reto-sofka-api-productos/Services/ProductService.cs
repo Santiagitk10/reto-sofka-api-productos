@@ -15,17 +15,21 @@ namespace reto_sofka_api_productos.Services
 
         private readonly StoreContext _context;
         private readonly IValidator<CreateProductDTO> _validator;
+        private readonly IValidator<EditProductDTO> _editValidator;
+
         private readonly IMapper _mapper;
 
         public ProductService(
             StoreContext context,
             IValidator<CreateProductDTO> validator,
-            IMapper mapper
+            IMapper mapper,
+            IValidator<EditProductDTO> editValidator
         )
         {
             _context = context;
             _validator = validator;
             _mapper = mapper;
+            _editValidator = editValidator;
         }
 
 
@@ -83,33 +87,33 @@ namespace reto_sofka_api_productos.Services
 
 
 
-        //public async Task UpdateProductAsync(int id, EditProductDTO productDTO)
-        //{
+        public async Task UpdateProductAsync(int id, EditProductDTO productDTO)
+        {
 
-        //    var productEntity = await _context.Products.FindAsync(id);
+            var productEntity = await _context.Products.FindAsync(id);
 
-        //    if (productEntity is null)
-        //    {
-        //        throw new ElementNotFoundException($"Product with ID: {id} could not be found");
-        //    }
+            if (productEntity is null)
+            {
+                throw new ElementNotFoundException($"Product with ID: {id} could not be found");
+            }
 
-        //    var validationResult = await _validator.ValidateAsync(productDTO);
+            var validationResult = await _editValidator.ValidateAsync(productDTO);
 
-        //    if (!validationResult.IsValid)
-        //    {
-        //        var errors = validationResult.Errors;
-        //        throw new InvalidElementException<List<ValidationFailure>>("Invalid arguments", errors);
-        //    }
+            if (!validationResult.IsValid)
+            {
+                var errors = validationResult.Errors;
+                throw new InvalidElementException<List<ValidationFailure>>("Invalid arguments", errors);
+            }
 
-        //    productEntity.ProductName = productDTO.ProductName;
-        //    productEntity.InInventory = productDTO.InInventory;
-        //    productEntity.Min = productDTO.Min;
-        //    productEntity.Max = productDTO.Max;
-        //    await _context.SaveChangesAsync();
+            productEntity.ProductName = productDTO.ProductName;
+            productEntity.InInventory = productDTO.InInventory;
+            productEntity.isEnabled = productDTO.isEnabled;
+            productEntity.Min = productDTO.Min;
+            productEntity.Max = productDTO.Max;
+            await _context.SaveChangesAsync();
 
 
-        //}
-
+        }
 
 
 

@@ -51,12 +51,12 @@ namespace reto_sofka_api_productos.Controllers
 
 
 
-        //[HttpPut("Put/{id}")]
-        //public async Task<IActionResult> UpdateProduct(int id, CreateProductDTO productDTO)
-        //{
-        //    await _service.UpdateProductAsync(id, productDTO);
-        //    return Ok();
-        //}
+        [HttpPut("Put/{id}")]
+        public async Task<IActionResult> UpdateProduct(int id, EditProductDTO productDTO)
+        {
+            await _service.UpdateProductAsync(id, productDTO);
+            return Ok();
+        }
 
         [HttpDelete("Delete/{id}")]
         public async Task<IActionResult> DeleteProduct(int id)
