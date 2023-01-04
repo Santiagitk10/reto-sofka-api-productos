@@ -48,5 +48,22 @@ namespace reto_sofka_api_productos.Controllers
             return Ok(await _service.CreateProductAsync(productDTO));
         }
 
+
+
+
+        //[HttpPut("Put/{id}")]
+        //public async Task<IActionResult> UpdateProduct(int id, CreateProductDTO productDTO)
+        //{
+        //    await _service.UpdateProductAsync(id, productDTO);
+        //    return Ok();
+        //}
+
+        [HttpDelete("Delete/{id}")]
+        public async Task<IActionResult> DeleteProduct(int id)
+        {
+            await _service.DeleteProductByIdAsync(id);
+            return Ok();
+        }
+
     }
 }

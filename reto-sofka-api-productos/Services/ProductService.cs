@@ -83,22 +83,53 @@ namespace reto_sofka_api_productos.Services
 
 
 
+        //public async Task UpdateProductAsync(int id, EditProductDTO productDTO)
+        //{
+
+        //    var productEntity = await _context.Products.FindAsync(id);
+
+        //    if (productEntity is null)
+        //    {
+        //        throw new ElementNotFoundException($"Product with ID: {id} could not be found");
+        //    }
+
+        //    var validationResult = await _validator.ValidateAsync(productDTO);
+
+        //    if (!validationResult.IsValid)
+        //    {
+        //        var errors = validationResult.Errors;
+        //        throw new InvalidElementException<List<ValidationFailure>>("Invalid arguments", errors);
+        //    }
+
+        //    productEntity.ProductName = productDTO.ProductName;
+        //    productEntity.InInventory = productDTO.InInventory;
+        //    productEntity.Min = productDTO.Min;
+        //    productEntity.Max = productDTO.Max;
+        //    await _context.SaveChangesAsync();
+
+
+        //}
 
 
 
 
 
-
-        Task IProductService.DeleteProductByIdAsync(int id)
+        public async Task DeleteProductByIdAsync(int id)
         {
-            throw new NotImplementedException();
+            var productEntity = await _context.Products.FindAsync(id);
+
+            if (productEntity is null)
+            {
+                throw new ElementNotFoundException($"Product with ID: {id} could not be found");
+            }
+
+            _context.Products.Remove(productEntity);
+            await _context.SaveChangesAsync();
+
         }
 
 
 
-        Task IProductService.UpdateProductAsync(CreateProductDTO product)
-        {
-            throw new NotImplementedException();
-        }
+        
     }
 }
