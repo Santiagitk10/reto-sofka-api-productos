@@ -5,6 +5,8 @@ VisualStudioVersion = 17.4.33122.133
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "reto-sofka-api-productos", "reto-sofka-api-productos\reto-sofka-api-productos.csproj", "{D2A065A2-955C-4030-BF5D-3A5990FCE70B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DB", "DB\DB.csproj", "{3930766B-6EE1-4A23-B0E3-89CB4A7547B9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{D2A065A2-955C-4030-BF5D-3A5990FCE70B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D2A065A2-955C-4030-BF5D-3A5990FCE70B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D2A065A2-955C-4030-BF5D-3A5990FCE70B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3930766B-6EE1-4A23-B0E3-89CB4A7547B9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3930766B-6EE1-4A23-B0E3-89CB4A7547B9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3930766B-6EE1-4A23-B0E3-89CB4A7547B9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3930766B-6EE1-4A23-B0E3-89CB4A7547B9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
