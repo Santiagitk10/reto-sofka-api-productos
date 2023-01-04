@@ -45,27 +45,21 @@ namespace reto_sofka_api_productos.Services
 
 
 
-
-
-
-
-
-
-
-
-        Task<Product>? IProductService.GetProductByIdAsync(int id)
+        public async Task<GetProductDTO>? GetProductByIdAsync(int id)
         {
-            throw new NotImplementedException();
+            var product = await _context.Products.FirstOrDefaultAsync(p => p.ProductId== id);
+
+            if(product is null)
+            {
+                throw new ElementNotFoundException($"Product with ID: {id} could not be found");
+            }
+
+            var productDTO = _mapper.Map<Product, GetProductDTO>(product);
+            return productDTO;
         }
 
 
 
-
-
-        
-        
-        
-        
         
         
         public async Task<CreateProductDTO> CreateProductAsync(CreateProductDTO productDTO)

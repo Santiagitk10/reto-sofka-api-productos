@@ -7,7 +7,7 @@ namespace reto_sofka_api_productos.Services
     public interface IProductService
     {
         Task<List<GetProductDTO>> GetAllProductsAsync(ProductParameters productParameters);
-        Task<Product>? GetProductByIdAsync(int id);
+        Task<GetProductDTO>? GetProductByIdAsync(int id);
         Task<CreateProductDTO> CreateProductAsync(CreateProductDTO product);
         Task UpdateProductAsync(CreateProductDTO product);
         Task DeleteProductByIdAsync(int id);

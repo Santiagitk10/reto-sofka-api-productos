@@ -33,6 +33,15 @@ namespace reto_sofka_api_productos.Controllers
         }
 
 
+        [HttpGet("Get/{id}")]
+        public async Task<IActionResult> GetProductById(int id)
+        {
+            return Ok(await _service.GetProductByIdAsync(id));
+        }
+
+
+
+
         [HttpPost("Post")]
         public async Task<IActionResult> CreateProduct(CreateProductDTO productDTO)
         {
