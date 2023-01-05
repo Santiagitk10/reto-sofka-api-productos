@@ -1,10 +1,3 @@
-<<<<<<< HEAD
-﻿namespace reto_sofka_api_productos.DTOs
-{
-    public class CreatePurchaseDTO
-    {
-=======
-﻿using DB;
 
 namespace reto_sofka_api_productos.DTOs
 {
@@ -17,6 +10,5 @@ namespace reto_sofka_api_productos.DTOs
         public ICollection<string> ProductIDs { get; set; }
 
 
->>>>>>> develop
     }
 }
