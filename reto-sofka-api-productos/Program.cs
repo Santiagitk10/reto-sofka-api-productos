@@ -18,6 +18,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddValidatorsFromAssemblyContaining<ProductValidator>();
 builder.Services.AddValidatorsFromAssemblyContaining<EditProductValidator>();
 builder.Services.AddScoped<IProductService, ProductService>();
+builder.Services.AddScoped<IPurchaseService, PurchaseService>();
 builder.Services.AddAutoMapper(typeof(Program));
 
 builder.Services.AddDbContext<StoreContext>(options =>
@@ -30,7 +31,7 @@ var app = builder.Build();
 
 app.UseMiddleware<ErrorHandlerMiddleware>();
 
-//To be run once. It overrides the DB
+//To be run once. It may override the DB
 using (var scope = app.Services.CreateScope())
 {
     var context = scope.ServiceProvider.GetRequiredService<StoreContext>();
