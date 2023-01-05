@@ -84,8 +84,9 @@ namespace DB.Migrations
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("IdType")
-                        .HasColumnType("int");
+                    b.Property<string>("IdType")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("PurchaseId");
 

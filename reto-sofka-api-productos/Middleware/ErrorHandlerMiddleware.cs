@@ -62,6 +62,13 @@ namespace reto_sofka_api_productos.Middleware
 
                         break;
 
+                    case InconsistentDataException:
+                        context.Response.ContentType = "application/json";
+                        context.Response.StatusCode = (int)HttpStatusCode.BadRequest;
+                        var errorModelInconsistentData = new ErrorBuilder().WithErrorCode("03").WithErrorMessage(ex.Message).Build();
+                        await context.Response.WriteAsync(JsonConvert.SerializeObject(errorModelInconsistentData));
+                        break;
+
                 }
             }
         }

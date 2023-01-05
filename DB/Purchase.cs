@@ -12,7 +12,7 @@ namespace DB
 
         public int PurchaseId { get; set; }
         public DateTime Date { get; set; }
-        public IdTypeEnum IdType { get; set; }
+        public string IdType { get; set; }
         public string Id { get; set; }
         public string ClientName { get; set; }
        
