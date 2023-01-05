@@ -22,6 +22,41 @@ namespace reto_sofka_api_productos.Services
             _mapper = mapper;
         }
 
+
+
+        public async Task<List<PurchaseJoinedDataDTO>> GetAllPurchasesAsync()
+        {
+            var allJoinedData = await _context.ProductPurchases.Include(x => x.Purchase)
+                .Include(x => x.Product).ToListAsync();
+
+            List<PurchaseJoinedDataDTO> purchaseJoinedDataDTOs = new();
+
+            foreach (var allJoinedDataItem in allJoinedData)
+            {
+                PurchaseJoinedDataDTO purchaseJoinedDataDTO = new();
+
+                purchaseJoinedDataDTO.PurchaseId = allJoinedDataItem.PurchaseId;
+                purchaseJoinedDataDTO.Date = allJoinedDataItem.Purchase.Date;
+                purchaseJoinedDataDTO.IdType = allJoinedDataItem.Purchase.IdType;
+                purchaseJoinedDataDTO.Id = allJoinedDataItem.Purchase.Id;
+                purchaseJoinedDataDTO.ClientName = allJoinedDataItem.Purchase.ClientName;
+                purchaseJoinedDataDTO.ProductId = allJoinedDataItem.ProductId;
+                purchaseJoinedDataDTO.ProductName = allJoinedDataItem.Product.ProductName;
+
+                purchaseJoinedDataDTOs.Add(purchaseJoinedDataDTO);
+            }
+
+            return purchaseJoinedDataDTOs;
+
+        }
+
+
+
+
+
+
+
+
         public async Task<CreatePurchaseDTO> CreatePurchaseAsync(CreatePurchaseDTO createPurchaseDTO)
         {
             
@@ -67,5 +102,9 @@ namespace reto_sofka_api_productos.Services
 
             return createPurchaseDTO;
         }
+
+        
+
+        
     }
 }

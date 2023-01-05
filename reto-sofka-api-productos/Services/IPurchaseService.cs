@@ -6,7 +6,7 @@ namespace reto_sofka_api_productos.Services
     public interface IPurchaseService
     {
 
-        //Task<List<GetProductDTO>> GetAllPurchasesAsync();
+        Task<List<PurchaseJoinedDataDTO>>  GetAllPurchasesAsync();
         Task<CreatePurchaseDTO> CreatePurchaseAsync(CreatePurchaseDTO purchase);
 
     }
