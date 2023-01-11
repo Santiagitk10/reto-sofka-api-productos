@@ -15,27 +15,24 @@ namespace reto_sofka_api_productos.Services
 
         private readonly StoreContext _context;
         private readonly IValidator<CreateProductDTO> _validator;
-        private readonly IValidator<EditProductDTO> _editValidator;
 
         private readonly IMapper _mapper;
 
         public ProductService(
             StoreContext context,
             IValidator<CreateProductDTO> validator,
-            IMapper mapper,
-            IValidator<EditProductDTO> editValidator
+            IMapper mapper
         )
         {
             _context = context;
             _validator = validator;
             _mapper = mapper;
-            _editValidator = editValidator;
         }
 
 
         public async Task<List<GetProductDTO>> GetAllProductsAsync(ProductParameters productParameters)
         {
-            List<Product> productsEntity = await _context.Products
+            List<Product> productsEntity = await _context.Products.Where(p => p.isEnabled != false)
                 .Skip((productParameters.PageNumber - 1) * productParameters.PageSize)
                 .Take(productParameters.PageSize)
                 .ToListAsync();
@@ -46,16 +43,18 @@ namespace reto_sofka_api_productos.Services
         }
 
 
-
-
-
         public async Task<GetProductDTO>? GetProductByIdAsync(int id)
         {
-            var product = await _context.Products.FirstOrDefaultAsync(p => p.ProductId== id);
+            var product = await _context.Products.FirstOrDefaultAsync(p => p.ProductId == id);
 
-            if(product is null)
+            if (product is null)
             {
                 throw new ElementNotFoundException($"Product with ID: {id} could not be found");
+            }
+
+            if (!product.isEnabled)
+            {
+                throw new InconsistentDataException($"Product with ID: {id} was deleted (Is not Enabled)");
             }
 
             var productDTO = _mapper.Map<Product, GetProductDTO>(product);
@@ -64,8 +63,8 @@ namespace reto_sofka_api_productos.Services
 
 
 
-        
-        
+
+
         public async Task<CreateProductDTO> CreateProductAsync(CreateProductDTO productDTO)
         {
             
@@ -86,8 +85,7 @@ namespace reto_sofka_api_productos.Services
         }
 
 
-
-        public async Task UpdateProductAsync(int id, EditProductDTO productDTO)
+        public async Task UpdateProductAsync(int id, CreateProductDTO productDTO)
         {
 
             var productEntity = await _context.Products.FindAsync(id);
@@ -97,7 +95,7 @@ namespace reto_sofka_api_productos.Services
                 throw new ElementNotFoundException($"Product with ID: {id} could not be found");
             }
 
-            var validationResult = await _editValidator.ValidateAsync(productDTO);
+            var validationResult = await _validator.ValidateAsync(productDTO);
 
             if (!validationResult.IsValid)
             {
@@ -107,7 +105,7 @@ namespace reto_sofka_api_productos.Services
 
             productEntity.ProductName = productDTO.ProductName;
             productEntity.InInventory = productDTO.InInventory;
-            productEntity.isEnabled = productDTO.isEnabled;
+            productEntity.isEnabled = true;
             productEntity.Min = productDTO.Min;
             productEntity.Max = productDTO.Max;
             await _context.SaveChangesAsync();

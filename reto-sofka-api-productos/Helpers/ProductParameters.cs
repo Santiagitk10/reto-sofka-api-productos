@@ -2,7 +2,7 @@
 {
     public class ProductParameters
     {
-        const int maxPageSize = 4;
+        const int maxPageSize = 20;
         public int PageNumber { get; set; } = 1;
         private int _pageSize = 1;
         public int PageSize
