@@ -21,6 +21,13 @@ builder.Services.AddScoped<IProductService, ProductService>();
 builder.Services.AddScoped<IPurchaseService, PurchaseService>();
 builder.Services.AddAutoMapper(typeof(Program));
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("MyCorsImplementationPolicy", builder => builder.WithOrigins("*")
+    .AllowAnyHeader());
+});
+
+
 builder.Services.AddDbContext<StoreContext>(options =>
 
     options.UseSqlServer(builder.Configuration.GetConnectionString("StoreConnection"))
@@ -48,6 +55,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+app.UseCors("MyCorsImplementationPolicy");
 app.UseAuthorization();
 
 app.MapControllers();

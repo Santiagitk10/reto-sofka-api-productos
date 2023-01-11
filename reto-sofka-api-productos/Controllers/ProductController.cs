@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Cors;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using reto_sofka_api_productos.DTOs;
 using reto_sofka_api_productos.Helpers;
@@ -8,6 +9,7 @@ namespace reto_sofka_api_productos.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [EnableCors("MyCorsImplementationPolicy")]
     public class ProductController : ControllerBase
     {
 
@@ -18,7 +20,7 @@ namespace reto_sofka_api_productos.Controllers
             _service = service;
         }
 
-
+   
         [HttpGet("Get") ]
         public async Task<IActionResult> GetAllProducts([FromQuery] ProductParameters productParameters)
         {
