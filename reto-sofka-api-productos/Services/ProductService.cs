@@ -33,18 +33,6 @@ namespace reto_sofka_api_productos.Services
         }
 
 
-        //public async Task<List<GetProductDTO>> GetAllProductsAsync(ProductParameters productParameters)
-        //{
-        //    List<Product> productsEntity = await _context.Products
-        //        .Skip((productParameters.PageNumber - 1) * productParameters.PageSize)
-        //        .Take(productParameters.PageSize)
-        //        .ToListAsync();
-
-        //    List<GetProductDTO> productsDTO = _mapper.Map<List<Product>, List<GetProductDTO>>(productsEntity);
-
-        //    return productsDTO;
-        //}
-
         public async Task<List<GetProductDTO>> GetAllProductsAsync(ProductParameters productParameters)
         {
             List<Product> productsEntity = await _context.Products.Where(p => p.isEnabled != false)
@@ -61,13 +49,31 @@ namespace reto_sofka_api_productos.Services
 
 
 
+        //public async Task<GetProductDTO>? GetProductByIdAsync(int id)
+        //{
+        //    var product = await _context.Products.FirstOrDefaultAsync(p => p.ProductId== id);
+
+        //    if(product is null)
+        //    {
+        //        throw new ElementNotFoundException($"Product with ID: {id} could not be found");
+        //    }
+
+        //    var productDTO = _mapper.Map<Product, GetProductDTO>(product);
+        //    return productDTO;
+        //}
+
         public async Task<GetProductDTO>? GetProductByIdAsync(int id)
         {
-            var product = await _context.Products.FirstOrDefaultAsync(p => p.ProductId== id);
+            var product = await _context.Products.FirstOrDefaultAsync(p => p.ProductId == id);
 
-            if(product is null)
+            if (product is null)
             {
                 throw new ElementNotFoundException($"Product with ID: {id} could not be found");
+            }
+
+            if (!product.isEnabled)
+            {
+                throw new InconsistentDataException($"Product with ID: {id} was deleted (Is not Enabled)");
             }
 
             var productDTO = _mapper.Map<Product, GetProductDTO>(product);
@@ -76,8 +82,8 @@ namespace reto_sofka_api_productos.Services
 
 
 
-        
-        
+
+
         public async Task<CreateProductDTO> CreateProductAsync(CreateProductDTO productDTO)
         {
             
