@@ -116,6 +116,20 @@ namespace reto_sofka_api_productos.Services
 
 
 
+        //public async Task DeleteProductByIdAsync(int id)
+        //{
+        //    var productEntity = await _context.Products.FindAsync(id);
+
+        //    if (productEntity is null)
+        //    {
+        //        throw new ElementNotFoundException($"Product with ID: {id} could not be found");
+        //    }
+
+        //    _context.Products.Remove(productEntity);
+        //    await _context.SaveChangesAsync();
+
+        //}
+
         public async Task DeleteProductByIdAsync(int id)
         {
             var productEntity = await _context.Products.FindAsync(id);
@@ -125,13 +139,13 @@ namespace reto_sofka_api_productos.Services
                 throw new ElementNotFoundException($"Product with ID: {id} could not be found");
             }
 
-            _context.Products.Remove(productEntity);
+            productEntity.isEnabled = false;
             await _context.SaveChangesAsync();
 
         }
 
 
 
-        
+
     }
 }
