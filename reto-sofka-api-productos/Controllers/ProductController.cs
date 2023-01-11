@@ -52,7 +52,7 @@ namespace reto_sofka_api_productos.Controllers
 
 
         [HttpPut("Put/{id}")]
-        public async Task<IActionResult> UpdateProduct(int id, EditProductDTO productDTO)
+        public async Task<IActionResult> UpdateProduct(int id, CreateProductDTO productDTO)
         {
             await _service.UpdateProductAsync(id, productDTO);
             return Ok();
