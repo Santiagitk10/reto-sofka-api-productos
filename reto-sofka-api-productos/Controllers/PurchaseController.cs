@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Cors;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using reto_sofka_api_productos.DTOs;
 using reto_sofka_api_productos.Helpers;
@@ -6,6 +7,7 @@ using reto_sofka_api_productos.Services;
 
 namespace reto_sofka_api_productos.Controllers
 {
+    [EnableCors("MyCorsImplementationPolicy")]
     [Route("api/[controller]")]
     [ApiController]
     public class PurchaseController : ControllerBase

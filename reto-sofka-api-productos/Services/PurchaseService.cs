@@ -26,7 +26,7 @@ namespace reto_sofka_api_productos.Services
 
         public async Task<List<PurchaseJoinedDataDTO>> GetAllPurchasesAsync()
         {
-            var allJoinedData = await _context.ProductPurchases.Include(x => x.Purchase)
+            var allJoinedData = await _context.ProductPurchases.OrderBy(x => x.PurchaseId).Include(x => x.Purchase)
                 .Include(x => x.Product).ToListAsync();
 
             List<PurchaseJoinedDataDTO> purchaseJoinedDataDTOs = new();
@@ -62,7 +62,7 @@ namespace reto_sofka_api_productos.Services
             
             foreach (var productID in createPurchaseDTO.ProductIDs)
             {
-                char[] delimitator = { ',' };
+                char[] delimitator = { '.' };
                 var prodSplit = productID.Split(delimitator);
                 var prodId = int.Parse(prodSplit[0]);
                 var prodQuantity = int.Parse(prodSplit[1]);
